@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+    <title>FakeMonitoring</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Fake Monitoring</span>
+        </div>
+      </nav>
+    <div class="app-container">
+        <div class="container-fluid">
+
+            <div class="row" style="margin-top: 16px;">
+                <div class="col">
+                    <div class="card" style="padding: 16px;">
+                        <h4 class="card-title">Device settings</h4>
+                        <hr>
+                        <div class="card-body">
+                            <div class="mb-3 row">
+                                <h6>Select device</h6>
+                                <div style="padding-left: 8px; padding-right: 8px;">
+                                    <select id="devices" class="form-select" aria-label="Default select example">
+                                        <% devices.forEach((device) => { %>
+                                        <option value=<%= device %>><%= device %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <h6 class="form-label">State</h6>
+                                <div id="status-changes" class="btn-group" role="group" aria-label="Basic example">
+                                    <button id="start" type="button" class="btn btn-outline-success">Start</button>
+                                    <button id="stop" type="button" class="btn btn-outline-danger">Stop</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <h6>Data profile</h6>
+                                <div id="parameters-changes" class="btn-group-vertical">
+                                    <% changes.forEach((change) => { %>
+                                    <button type="button"
+                                        class="btn btn-outline-dark"><%= change %></button>
+                                    <% }); %>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <h6>Report time</h6>
+                                <div style="padding-left: 8px; padding-right: 8px;">
+                                    <select id="report-time" class="form-select" aria-label="Default select example">
+                                        <option value="1">1 s</option>
+                                        <option value="3">3 s</option>
+                                        <option value="5">5 s</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="padding: 16px">
+                        <h4 class="card-title">Device output</h4>
+                        <hr>
+                        <div class="card-body">
+                            <div class="mb-3 row">
+                                <h6 class="form-label">Device</h6>
+                                <span id="selected-device" style="margin-left: 16px">-</span>
+                            </div>
+                            <div class="mb-3 row">
+                                <h6 class="form-label">Device reports every</h6>
+                                <span id="report-time-label" style="margin-left: 16px">-</span>
+                            </div>
+                            <div class="mb-3 row">
+                                <h6 class="form-label">Device state</h6>
+                                <span id="status" style="margin-left: 16px">-</span>
+                            </div>
+                            <div class="mb-3 row">
+                                <h6 class="form-label">Last received data (<span id="timestamp">-</span>)</h6>
+                                <div style="margin-left: 16px">
+                                    <ul>
+                                        <li id="SPO2"><span>Saturation (SPO2): </span><strong>-</strong>    %</li>
+                                        <li id="systolic-blood-pressure"><span>Systolic blood pressure:
+                                            </span><strong>-</strong>   mmHg</li>
+                                        <li id="diastolic-blood-pressure"><span>Diastolic blood pressure:
+                                            </span><strong>-</strong></li>
+                                        <li id="PI"><span>PI: </span><strong>-</strong> %</li>
+                                        <li id="temperature"><span>Temperature: </span><strong>-</strong>   *C</li>
+                                        <li id="pulse"><span>Pulse: </span><strong>-</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="loading" class="loading"></div>
+</body>
+
+<script src="jQuery.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+</script>
+<script src="main.js"></script>
+
+</html>
