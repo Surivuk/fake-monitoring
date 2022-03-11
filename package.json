@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "productionStart": "node -r dist/src/app.js",
     "start": "npm run build && npm run copyPages && node dist/src/app",
     "copyPages": "cp -r ./src/pages ./dist/src/pages",
     "dev": "ts-node-dev src/app.ts",
