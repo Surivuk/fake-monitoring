@@ -17,8 +17,8 @@ export default class WebApi {
 	start() {
 		this.configureApp()
 		this.configureSocket()
-		this._server.listen(3000, () => {
-			console.log("Listening on port 3000...");
+		this._server.listen(9030, () => {
+			console.log("Listening on port 9030...");
 		});
 	}
 	private configureApp() {

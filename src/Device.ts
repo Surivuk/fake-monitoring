@@ -81,7 +81,8 @@ export default class Device {
 			const source = this._change ? { ...defaultValues, ...this._change } : defaultValues;
 			keys.forEach((key) => {
 				const { min, max, decimalFix } = source[key];
-				this.publish(`${this._baseTopic}/data`, generateParameter(key, min, max, timestamp, decimalFix));
+				const data = generateParameter(key, min, max, timestamp, decimalFix)
+				this.publish(`${this._baseTopic}/data`, data);
 			});
 		}, 1000 * seconds);
 	}
