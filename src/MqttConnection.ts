@@ -10,7 +10,7 @@ export default class MqttConnection {
     private readonly _client: Client;
 
     constructor(brokerUrl: string) {
-        this._client = mqtt.connect(brokerUrl, { username: "smart-hospital", password: "admin" })
+        this._client = mqtt.connect(brokerUrl)
     }
 
     async subscribe(topic: string): Promise<void> {

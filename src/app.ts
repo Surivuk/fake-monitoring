@@ -6,7 +6,7 @@ import Device, { PublishFunction } from "./Device";
 async function main() {
     const { devices } = JSON.parse(fs.readFileSync("./settings.json").toString());
     const deviceMap = new Map<string, Device>()
-    const mqtt = new MqttConnection("mqtt://localhost");
+    const mqtt = new MqttConnection(process.env.MQTT_URL as string);
     const api = new WebApi(mqtt, devices)
 
     const publish: PublishFunction = (topic, data) => { mqtt.publish(topic, data) }
@@ -16,8 +16,8 @@ async function main() {
         await mqtt.subscribe(`monitoring/${device}/status`);
         deviceMap.set(device, new Device(device, publish))
     }
-
-    api.start()
+    console.log(process.env.HTTP_PORT)
+    api.start(parseInt(process.env.HTTP_PORT as string))
     mqtt.start(async (topic, data) => {
         const device = topic.split('/')[1]
         handleCommand(deviceMap.get(device), data)

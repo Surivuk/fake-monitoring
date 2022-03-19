@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "productionStart": "node -r dist/src/app.js",
-    "start": "npm run build && npm run copyPages && node dist/src/app",
+    "productionStart": "node -r ./loadEnv dist/src/app.js",
+    "start": "npm run build && npm run copyPages && node -r ./loadEnv dist/src/app",
     "copyPages": "cp -r ./src/pages ./dist/src/pages",
-    "dev": "ts-node-dev src/app.ts",
+    "dev": "ts-node-dev -r ./loadEnv src/app.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "mqtt": "^4.3.6",

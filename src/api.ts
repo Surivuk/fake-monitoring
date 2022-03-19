@@ -14,11 +14,11 @@ export default class WebApi {
 
 	constructor(private readonly _mqtt: MqttConnection, private readonly _devices: string[]) { }
 
-	start() {
+	start(port: number) {
 		this.configureApp()
 		this.configureSocket()
-		this._server.listen(9030, () => {
-			console.log("Listening on port 9030...");
+		this._server.listen(port, () => {
+			console.log(`Listening on port ${port}...`);
 		});
 	}
 	private configureApp() {
